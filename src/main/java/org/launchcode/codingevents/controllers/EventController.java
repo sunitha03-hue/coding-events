@@ -37,5 +37,6 @@ public class EventController {
         events.add(eventName);
         return "redirect:";
     }
-
+@GetMapping("edit/{eventId}")
+    public String displayEditForm(Model)
 }
