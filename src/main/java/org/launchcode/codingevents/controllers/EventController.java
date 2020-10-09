@@ -37,8 +37,8 @@ public class EventController {
     @PostMapping("create")
     public String processCreateEventForm(@ModelAttribute Event newEvent){
         EventData.add(newEvent);
-        return "redirect:";
-       // return "redirect:/events";
+        //return "redirect:";
+        return "redirect:/events";
     }
     @GetMapping("delete")
     public String displayDeleteEventForm(Model model){
@@ -48,14 +48,23 @@ public class EventController {
     }
 
     @PostMapping("delete")
-    public String processDeleteEventsForm(@RequestParam (required = false) int[] eventIDs){
+    public String processDeleteEventsForm(@RequestParam (required = false) int[] eventIDs, Model model){
        if(eventIDs!=null) {
            for (int id : eventIDs) {
                EventData.remove(id);
            }
+           model.addAttribute("title", "Delete Event");
+           model.addAttribute("events", EventData.getAll());
+
+       }else
+       {
+           model.addAttribute("title", "Delete Event");
+           model.addAttribute("events", EventData.getAll());
+
+           return "events/delete";
        }
         return "redirect:";
-        // return "redirect:/events";
+        //return "redirect:/events";
     }
 
    /* @GetMapping
